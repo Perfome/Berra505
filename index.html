@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuralMath AI - Gelişmiş Matematik Motoru</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+</head>
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-animation">
+                    <div class="sphere"></div>
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+                <div class="logo-text">
+                    <h1>NeuralMath AI</h1>
+                    <p class="tagline">Gerçek Matematik Motoru</p>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-icon">∫</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="totalCalculations">0</span>
+                        <span class="stat-label">Hesaplama</span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-info">
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">Doğruluk</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn-control" id="themeBtn" title="Tema">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
+                    </svg>
+                </button>
+                <button class="btn-control" id="clearBtn" title="Temizle">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>🔢 Matematik</h3>
+                    <button class="capability-btn active" data-category="integral">
+                        <span class="cap-icon">∫</span>
+                        <span>İntegral</span>
+                    </button>
+                    <button class="capability-btn" data-category="derivative">
+                        <span class="cap-icon">d/dx</span>
+                        <span>Türev</span>
+                    </button>
+                    <button class="capability-btn" data-category="limit">
+                        <span class="cap-icon">lim</span>
+                        <span>Limit</span>
+                    </button>
+                    <button class="capability-btn" data-category="equation">
+                        <span class="cap-icon">=</span>
+                        <span>Denklem</span>
+                    </button>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>📊 Cebir</h3>
+                    <button class="capability-btn" data-category="simplify">
+                        <span class="cap-icon">∑</span>
+                        <span>Sadeleştir</span>
+                    </button>
+                    <button class="capability-btn" data-category="factor">
+                        <span class="cap-icon">×</span>
+                        <span>Çarpanlara Ayır</span>
+                    </button>
+                    <button class="capability-btn" data-category="expand">
+                        <span class="cap-icon">+</span>
+                        <span>Açılım</span>
+                    </button>
+                </div>
+
+                <div class="examples-section">
+                    <h3>💡 Örnekler</h3>
+                    <div class="example-chip" data-example="∫(x^2 + 2*x) dx">∫ x² + 2x dx</div>
+                    <div class="example-chip" data-example="türev x^3 * sin(x)">Türev x³·sin(x)</div>
+                    <div class="example-chip" data-example="limit (sin(x)/x) x->0">lim sin(x)/x</div>
+                    <div class="example-chip" data-example="çöz x^2 - 5*x + 6 = 0">x² - 5x + 6 = 0</div>
+                    <div class="example-chip" data-example="sadeleştir (x^2-4)/(x-2)">Sadeleştir</div>
+                    <div class="example-chip" data-example="çarpanlar x^2 - 9">Çarpanlar</div>
+                </div>
+            </aside>
+
+            <main class="chat-section">
+                <div class="chat-container" id="chatContainer">
+                    <div class="welcome-screen" id="welcomeScreen">
+                        <div class="welcome-hero">
+                            <div class="hero-animation">
+                                <div class="math-symbol">∫</div>
+                                <div class="math-symbol">∂</div>
+                                <div class="math-symbol">∑</div>
+                                <div class="math-symbol">π</div>
+                                <div class="math-symbol">∞</div>
+                            </div>
+                            <h1>NeuralMath AI</h1>
+                            <p>Gerçek matematik motoru ile güçlendirilmiş yapay zeka</p>
+                        </div>
+
+                        <div class="features">
+                            <div class="feature-card">
+                                <div class="feature-icon">∫</div>
+                                <h3>İntegral Çözümü</h3>
+                                <p>Belirsiz ve belirli integraller</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">d/dx</div>
+                                <h3>Türev Hesaplama</h3>
+                                <p>Tüm türev kuralları</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">lim</div>
+                                <h3>Limit</h3>
+                                <p>Sonlu ve sonsuz limitler</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">x²</div>
+                                <h3>Cebirsel İşlemler</h3>
+                                <p>Sadeleştirme, çarpanlara ayırma</p>
+                            </div>
+                        </div>
+
+                        <div class="quick-start">
+                            <p>🚀 Hemen başlayın:</p>
+                            <div class="quick-examples">
+                                <span class="quick-ex">∫ x² dx</span>
+                                <span class="quick-ex">türev sin(x)</span>
+                                <span class="quick-ex">çöz 2x + 5 = 11</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="messages" id="messages"></div>
+                    
+                    <div class="typing-indicator" id="typing" style="display: none;">
+                        <div class="typing-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span>Hesaplanıyor...</span>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <div class="input-toolbar">
+                        <button class="tool-btn" data-insert="∫" title="İntegral">∫</button>
+                        <button class="tool-btn" data-insert="∂" title="Kısmi Türev">∂</button>
+                        <button class="tool-btn" data-insert="∑" title="Toplam">∑</button>
+                        <button class="tool-btn" data-insert="√" title="Karekök">√</button>
+                        <button class="tool-btn" data-insert="^" title="Üs">x^</button>
+                        <button class="tool-btn" data-insert="π" title="Pi">π</button>
+                        <button class="tool-btn" data-insert="∞" title="Sonsuz">∞</button>
+                        <div class="char-counter">
+                            <span id="charCount">0</span> / 500
+                        </div>
+                    </div>
+                    
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="userInput" 
+                            placeholder="Matematik probleminizi yazın... (Örn: integral x^2 dx veya türev sin(x))"
+                            maxlength="500"
+                        ></textarea>
+                        <button class="btn-send" id="sendBtn">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="input-hints">
+                        <span class="hint">💡 İpucu: "integral", "türev", "limit", "çöz" komutlarını kullanın</span>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="math-engine.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
